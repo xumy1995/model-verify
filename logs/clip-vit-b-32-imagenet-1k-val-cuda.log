@@ -1,0 +1,14 @@
+Loaded split 'validation' with 50000 samples and 1000 classes.
+
+Running on: cuda
+Model path: /data/xumengying/models_and_datasets/clip-vit-base-patch32
+Samples: 50000
+Prompt set: ensemble (18 templates)
+Model load time: 4.169s
+Preprocess time: 1.597s
+Inference time: 11.019s
+Throughput: 3937.10 samples/s
+Infer throughput: 4508.60 samples/s
+Avg infer latency: 0.222 ms/sample
+Top-1 accuracy: 60.83%
+Top-5 accuracy: 85.54%

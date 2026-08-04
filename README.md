@@ -12,8 +12,9 @@ uv pip install transformers datasets Pillow pycocotools timm -i https://pypi.tun
 | ----  | --------|
 | [ResNet-50](https://huggingface.co/microsoft/resnet-50) | [ImageNet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
 | [detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50) | [COCO](https://huggingface.co/datasets/detection-datasets/coco) |
-| [YOLO26](https://huggingface.co/Ultralytics/YOLO26) | [COCO原始格式](https://docs.ultralytics.com/datasets/detect/coco) |
-| [VIT-B/16](https://huggingface.co/google/vit-base-patch16-224) |[ImageNet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
+| [YOLO26](https://huggingface.co/Ultralytics/YOLO26) | [COCO(原始格式)](https://docs.ultralytics.com/datasets/detect/coco) |
+| [VIT-B/16](https://huggingface.co/google/vit-base-patch16-224) | [ImageNet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
+| [clip-vit-b/32](https://huggingface.co/openai/clip-vit-base-patch32)| [ImageNet-1k(zero shot)](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
 
 
 # 评测脚本
@@ -37,3 +38,10 @@ python eval_yolo.py --model /data/xumengying/models_and_datasets/YOLO26/yolo26m.
 python eval_yolo.py --model /data/xumengying/models_and_datasets/YOLO26/yolo26l.pt | tee logs/yolo26l-coco-val-cuda.log
 python eval_yolo.py --model /data/xumengying/models_and_datasets/YOLO26/yolo26x.pt | tee logs/yolo26x-coco-val-cuda.log
 ```
+
+## VIT-B/16
+```bash
+python eval_vit.py --devices cuda | tee logs/VIT-B-16-imagenet-1k-val-cuda.log
+```
+
+## clip-vit-b/32
