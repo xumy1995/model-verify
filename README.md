@@ -13,18 +13,19 @@ uv pip install transformers datasets Pillow pycocotools timm -i https://pypi.tun
 | [ResNet-50](https://huggingface.co/microsoft/resnet-50) | [ImageNet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
 | [detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50) | [COCO](https://huggingface.co/datasets/detection-datasets/coco) |
 | [YOLO26](https://huggingface.co/Ultralytics/YOLO26) | [COCO原始格式](https://docs.ultralytics.com/datasets/detect/coco) |
+| [VIT-B/16](https://huggingface.co/google/vit-base-patch16-224) |[ImageNet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k) |
 
 
 # 评测脚本
 
 ## ResNet-50
 ```bash
-python eval_imagenet.py --devices cuda | tee logs/resnet50-imagenet-1k-val-cuda.log
+python eval_resnet.py --devices cuda | tee logs/resnet50-imagenet-1k-val-cuda.log
 ```
 
 ## Detr-Resnet-50
 ```bash
-python eval_coco.py --devices cuda | tee logs/detr-resnet-50-coco-val-cuda.log
+python eval_detr.py --devices cuda | tee logs/detr-resnet-50-coco-val-cuda.log
 ```
 
 ## YOLO26
