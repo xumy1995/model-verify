@@ -45,3 +45,6 @@ python eval_vit.py --devices cuda | tee logs/VIT-B-16-imagenet-1k-val-cuda.log
 ```
 
 ## clip-vit-b/32
+```bash
+python eval_clip.py --devices cuda | tee logs/clip-vit-b-32-imagenet-1k-val-cuda.log
+```
