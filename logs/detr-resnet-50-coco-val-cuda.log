@@ -1,0 +1,43 @@
+Loaded split 'val' with 4952 samples and 80 classes.
+
+========================
+Running on: cuda
+========================
+Model path       : /data/xumengying/models_and_datasets/detr-resnet-50
+Dataset path     : /data/xumengying/models_and_datasets/coco
+Split            : val
+Samples          : 4952
+Detections       : 495200
+Batch size       : 4
+Score threshold  : 0.0
+Precision        : fp32
+Model load time  : 1.427s
+Preprocess time  : 5.474s
+Inference time   : 67.702s
+Measured wall    : 73.177s
+Throughput       : 67.56 samples/s
+Infer throughput : 73.03 samples/s
+Avg infer latency: 13.694 ms/sample
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=1.25s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=30.38s).
+Accumulating evaluation results...
+DONE (t=4.58s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.414
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.614
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.435
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.204
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.448
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.601
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.332
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.529
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.571
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.320
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.622
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.792
