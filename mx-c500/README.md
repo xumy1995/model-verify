@@ -40,7 +40,7 @@ True
 'MetaX C500'
 ```
 
-## 挂载模型、数据和代码目录
+# 挂载模型、数据和代码目录
 
 宿主机上的模型和 ImageNet 数据位于 `/mnt/afs/xumengying/models_and_datasets`，
 评测代码位于本仓库。启动容器时将这些目录挂载到容器内相同路径（容器已创建时，
@@ -61,7 +61,7 @@ sudo docker run -it --name maca-pytorch-test \
 `ls /mnt/afs/xumengying/models_and_datasets/resnet-50` 和
 `ls /mnt/afs/xumengying/models_and_datasets/imagenet-1k` 确认挂载成功。
 
-## 评测
+# 评测
 
 进入`mx-c500`并创建`logs`目录
 ```bash
@@ -69,7 +69,7 @@ cd /workspace/model-verify/mx-c500
 mkdir -p logs
 ```
 
-### Resnet-50
+## Resnet-50
 
 ```bash
 python -m pip install transformers datasets Pillow tqdm
@@ -81,7 +81,7 @@ python eval_resnet_mx.py \
 ```
 
 
-### DETR-ResNet-50
+## DETR-ResNet-50
 ```bash
 python -m pip install pycocotools timm
 python eval_detr_mx.py \
@@ -91,7 +91,7 @@ python eval_detr_mx.py \
   | tee logs/detr-resnet-50-coco-val-mx-c500.log
 ```
 
-### YOLO26
+## YOLO26
 
 ```bash
 python -m pip install ultralytics
@@ -104,7 +104,7 @@ python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yo
 python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26x.pt | tee logs/yolo26x-coco-val-cuda.log
 ```
 
-### VIT-B/16
+## VIT-B/16
 ```bash
 python eval_vit_mx.py \
   --model-path /mnt/afs/xumengying/models_and_datasets/vit-base-patch16-224 \
@@ -114,7 +114,7 @@ python eval_vit_mx.py \
   | tee logs/VIT-B-16-imagenet-1k-val-mx-c500.log
 ```
 
-### clip-vit-b/32 + Imagenet-1k
+## clip-vit-b/32 + Imagenet-1k
 ```bash
 python eval_clip_mx.py \
   --model-path /mnt/afs/xumengying/models_and_datasets/clip-vit-base-patch32 \
