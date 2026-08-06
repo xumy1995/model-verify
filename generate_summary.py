@@ -24,7 +24,7 @@ def comparison(label, cuda, mx):
         return f"**{value}**" if diff <= -5.0 else value
     # For throughput, MX/CUDA is the performance ratio. For latency, lower is
     # better, so report CUDA-time / MX-time (the effective performance ratio).
-    is_latency = "时间" in label or "latency" in label.lower()
+    is_latency = "耗时" in label or "latency" in label.lower()
     ratio = (100.0 * cuda / mx if is_latency else 100.0 * mx / cuda) if cuda and mx else None
     value = f"{ratio:.2f}%"
     return f"**{value}**" if ratio < 80.0 else value
@@ -43,8 +43,8 @@ def classification_rows(model, dataset, cuda_file, mx_file):
         rows.append((model, dataset, label, number(pattern, cuda_file), number(pattern, mx_file), digits))
     # Throughput is samples/s; its reciprocal is ms/sample.
     for label, pattern, digits in (
-        ("每样本推理时间 (ms/sample)", r"Infer throughput\s*:\s*([0-9.]+)", 4),
-        ("每样本端到端时间 (ms/sample)", r"Throughput\s*:\s*([0-9.]+)", 4),
+        ("推理耗时", r"Infer throughput\s*:\s*([0-9.]+)", 4),
+        ("端到端耗时", r"Throughput\s*:\s*([0-9.]+)", 4),
     ):
         c, m = number(pattern, cuda_file), number(pattern, mx_file)
         rows.append((model, dataset, label, 1000 / c if c else None, 1000 / m if m else None, digits))
@@ -59,7 +59,7 @@ def detr_rows(cuda_file, mx_file):
         ("AP75", r"IoU=0.75\s+\| area=\s+all.*=\s*([0-9.]+)"),
     ):
         rows.append(("DETR-ResNet-50", "COCO val", label, number(pattern, cuda_file), number(pattern, mx_file), 3))
-    for label, pattern in (("每样本推理时间 (ms/sample)", r"Avg infer latency:\s*([0-9.]+)"), ("每样本端到端时间 (ms/sample)", r"Throughput\s*:\s*([0-9.]+)")):
+    for label, pattern in (("推理耗时", r"Avg infer latency:\s*([0-9.]+)"), ("端到端耗时", r"Throughput\s*:\s*([0-9.]+)")):
         c, m = number(pattern, cuda_file), number(pattern, mx_file)
         rows.append(("DETR-ResNet-50", "COCO val", label, c if "latency" in pattern else (1000 / c if c else None), m if "latency" in pattern else (1000 / m if m else None), 3))
     return rows
@@ -69,7 +69,7 @@ def yolo_rows(model, cuda_file, mx_file):
     rows = []
     for label, key in (("mAP50-95", "mAP50-95"), ("mAP50", "mAP50"), ("mAP75", "mAP75")):
         rows.append((model, "COCO val", label, number(rf"{key}:\s*([0-9.]+)", cuda_file), number(rf"{key}:\s*([0-9.]+)", mx_file), 4))
-    for label in ("每样本推理时间 (ms/image)", "每样本端到端时间 (ms/image)"):
+    for label in ("推理耗时", "端到端耗时"):
         vals = []
         for text in (cuda_file, mx_file):
             parts = [number(rf"{key}:\s*([0-9.]+)", text) for key in ("inference_speed", "preprocess_speed", "postprocess_speed")]
@@ -97,6 +97,8 @@ def main():
         ("性能对比", [row for row in rows if not is_accuracy(row[2])]),
     ):
         print(f"## {title}\n")
+        if title == "性能对比":
+            print(f"单位: ms/sample\n")
         print("| 模型 | 数据集 | 评测项 | cuda指标值 | mx-c500指标值 | 对比结果 |")
         print("|---|---|---|---:|---:|---:|")
         for model, dataset, label, c, m, digits in selected:
