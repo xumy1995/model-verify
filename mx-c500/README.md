@@ -97,11 +97,11 @@ python eval_detr_mx.py \
 python -m pip install ultralytics
 # ultralytics 会导入 OpenCV；基础镜像若缺少 libGL.so.1，先安装运行库
 apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0
-python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n.pt | tee logs/yolo26n-coco-val-cuda.log
-python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26s.pt | tee logs/yolo26s-coco-val-cuda.log
-python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26m.pt | tee logs/yolo26m-coco-val-cuda.log
-python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26l.pt | tee logs/yolo26l-coco-val-cuda.log
-python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26x.pt | tee logs/yolo26x-coco-val-cuda.log
+python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n.pt | tee logs/yolo26n-coco-val-mx-c500.log
+python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26s.pt | tee logs/yolo26s-coco-val-mx-c500.log
+python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26m.pt | tee logs/yolo26m-coco-val-mx-c500.log
+python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26l.pt | tee logs/yolo26l-coco-val-mx-c500.log
+python eval_yolo_mx.py --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26x.pt | tee logs/yolo26x-coco-val-mx-c500.log
 ```
 
 ## VIT-B/16
