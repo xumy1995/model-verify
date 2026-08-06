@@ -1,0 +1,22 @@
+Loaded split 'validation' with 50000 samples.
+
+========================
+Running on: cuda
+========================
+Model path       : /mnt/afs/xumengying/models_and_datasets/resnet-50
+Dataset path     : /mnt/afs/xumengying/models_and_datasets/imagenet-1k
+Split            : validation
+Samples          : 50000
+Labeled samples  : 50000
+Batch size       : 64
+Warmup batches   : 5
+Precision        : fp32
+Model load time  : 0.532s
+Preprocess time  : 0.820s
+Inference time   : 17.645s
+Measured wall    : 18.467s
+Throughput       : 2690.25 samples/s
+Infer throughput : 2815.49 samples/s
+Avg infer latency: 0.355 ms/sample
+Top-1 accuracy   : 80.15%
+Top-5 accuracy   : 94.50%

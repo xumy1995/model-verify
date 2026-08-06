@@ -1,0 +1,22 @@
+Loaded split 'validation' with 50000 samples.
+
+========================
+Running on: cuda
+========================
+Model path       : /mnt/afs/xumengying/models_and_datasets/vit-base-patch16-224
+Dataset path     : /mnt/afs/xumengying/models_and_datasets/imagenet-1k
+Split            : validation
+Samples          : 50000
+Labeled samples  : 50000
+Batch size       : 64
+Warmup batches   : 5
+Precision        : fp32
+Model load time  : 1.267s
+Preprocess time  : 0.844s
+Inference time   : 52.434s
+Measured wall    : 53.279s
+Throughput       : 932.44 samples/s
+Infer throughput : 947.48 samples/s
+Avg infer latency: 1.055 ms/sample
+Top-1 accuracy   : 80.31%
+Top-5 accuracy   : 95.49%
