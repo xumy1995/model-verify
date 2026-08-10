@@ -1,0 +1,14 @@
+.venv/
+data/
+checkpoints/
+__pycache__/
+*.pyc
+.ruff_cache/
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+*.onnx
+*.h5
+*.msgpack
