@@ -79,13 +79,14 @@
 对训练好的 checkpoint 进行精度和性能评测：
 
     python resnet/eval_resnet50.py \
-      --checkpoint resnet/checkpoints/resnet50_v2/last.pth \
+      --checkpoint resnet/checkpoints/resnet50_v2_ddp/last.pth \
       --data /data/xumengying/models_and_datasets/ILSVRC \
       --devices cuda \
       --batch-size 256 \
       --workers 8 \
-      --warmup-batches 5 \
-      --fp16
+      --warmup-batches 5 | tee resnet/logs/eval_resnet50_v2_ddp.log
+
+默认使用 FP32。需要测试 CUDA FP16 时再额外添加 `--fp16`。
 
 输出指标包括：
 
