@@ -2,7 +2,6 @@
 venv-cuda-py312/
 data/
 checkpoints/
-logs/
 __pycache__/
 *.pyc
 .ruff_cache/
