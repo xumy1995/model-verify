@@ -11,6 +11,7 @@ from pathlib import Path
 
 import torch
 from PIL import Image
+from tqdm.auto import tqdm
 from torch.utils.data import DataLoader, Dataset
 from torchvision import models, transforms
 from torchvision.datasets import ImageFolder
@@ -117,10 +118,21 @@ def run(args, device_name):
     sync(device)
     load_time = time.perf_counter() - t0
     total = measured = top1 = top5 = 0
-    wall = infer = 0.0
+    preprocess_time = inference_time = measured_wall_time = 0.0
+    print("\n========================")
+    print(f"Running on: {device}")
+    print("========================")
     with torch.inference_mode():
-        for batch_index, (images, labels) in enumerate(loader):
+        progress = tqdm(
+            enumerate(loader),
+            total=len(loader),
+            desc=f"{device} ImageNet eval",
+            unit="batch",
+            dynamic_ncols=True,
+        )
+        for batch_index, (images, labels) in progress:
             batch_start = time.perf_counter()
+            prep_start = time.perf_counter()
             images, labels = (
                 images.to(device, non_blocking=True),
                 labels.to(device, non_blocking=True),
@@ -128,6 +140,7 @@ def run(args, device_name):
             if args.fp16 and device.type == "cuda":
                 images = images.half()
             sync(device)
+            prep_elapsed = time.perf_counter() - prep_start
             infer_start = time.perf_counter()
             with torch.autocast(
                 device_type="cuda", enabled=args.fp16 and device.type == "cuda"
@@ -137,32 +150,39 @@ def run(args, device_name):
             infer_elapsed = time.perf_counter() - infer_start
             if batch_index >= args.warmup_batches:
                 measured += labels.numel()
-                wall += time.perf_counter() - batch_start
-                infer += infer_elapsed
+                measured_wall_time += time.perf_counter() - batch_start
+                preprocess_time += prep_elapsed
+                inference_time += infer_elapsed
             pred = logits.topk(5, dim=1).indices
             top1 += (pred[:, 0] == labels).sum().item()
             top5 += (pred == labels[:, None]).any(dim=1).sum().item()
             total += labels.numel()
-    result = {
-        "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "event": "eval",
-        "checkpoint": args.checkpoint,
-        "data": args.data,
-        "device": str(device),
-        "samples": total,
-        "batch_size": args.batch_size,
-        "warmup_batches": args.warmup_batches,
-        "precision": "fp16" if args.fp16 and device.type == "cuda" else "fp32",
-        "top1": 100.0 * top1 / total,
-        "top5": 100.0 * top5 / total,
-        "load_seconds": load_time,
-        "throughput_samples_per_sec": measured / wall if wall else 0.0,
-        "inference_throughput_samples_per_sec": measured / infer if infer else 0.0,
-        "inference_latency_ms_per_sample": 1000.0 * infer / measured
-        if measured
-        else 0.0,
-    }
-    print(json.dumps(result, indent=2, sort_keys=True))
+            progress.set_postfix(
+                samples=total,
+                top1=f"{100.0 * top1 / total:.2f}%",
+            )
+    throughput = measured / measured_wall_time if measured_wall_time else 0.0
+    inference_throughput = measured / inference_time if inference_time else 0.0
+    latency = 1000.0 * inference_time / measured if measured else 0.0
+    print(f"Model path       : {args.checkpoint}")
+    print(f"Dataset path     : {args.data}")
+    print("Split            : validation")
+    print(f"Samples          : {total}")
+    print(f"Labeled samples  : {total}")
+    print(f"Batch size       : {args.batch_size}")
+    print(f"Warmup batches   : {args.warmup_batches}")
+    print(
+        f"Precision        : {'fp16' if args.fp16 and device.type == 'cuda' else 'fp32'}"
+    )
+    print(f"Model load time  : {load_time:.3f}s")
+    print(f"Preprocess time  : {preprocess_time:.3f}s")
+    print(f"Inference time   : {inference_time:.3f}s")
+    print(f"Measured wall    : {measured_wall_time:.3f}s")
+    print(f"Throughput       : {throughput:.2f} samples/s")
+    print(f"Infer throughput : {inference_throughput:.2f} samples/s")
+    print(f"Avg infer latency: {latency:.3f} ms/sample")
+    print(f"Top-1 accuracy   : {100.0 * top1 / total:.2f}%")
+    print(f"Top-5 accuracy   : {100.0 * top5 / total:.2f}%")
 
 
 def main():

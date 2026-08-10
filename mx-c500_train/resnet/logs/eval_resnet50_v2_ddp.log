@@ -1,0 +1,21 @@
+
+========================
+Running on: cuda
+========================
+Model path       : resnet/checkpoints/resnet50_v2_ddp/last.pth
+Dataset path     : /mnt/afs/xumengying/models_and_datasets/ILSVRC
+Split            : validation
+Samples          : 50000
+Labeled samples  : 50000
+Batch size       : 256
+Warmup batches   : 5
+Precision        : fp32
+Model load time  : 1.128s
+Preprocess time  : 0.766s
+Inference time   : 16.058s
+Measured wall    : 16.825s
+Throughput       : 2895.67 samples/s
+Infer throughput : 3034.04 samples/s
+Avg infer latency: 0.330 ms/sample
+Top-1 accuracy   : 80.37%
+Top-5 accuracy   : 95.04%
