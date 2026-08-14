@@ -1,3 +1,7 @@
 torch
 torchvision
 pillow
+datasets
+transformers
+pycocotools
+tqdm
