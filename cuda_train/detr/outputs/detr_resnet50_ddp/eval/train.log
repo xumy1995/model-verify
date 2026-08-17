@@ -1,0 +1,1 @@
+{"event": "initialization", "backbone_weights": "/data/xumengying/models_and_datasets/resnet-50", "backbone_keys_loaded": 265, "backbone_load_success": true, "detector_heads": "random_initialization", "epochs": 300, "lr_drop": 200, "timestamp": "2026-08-17T02:10:05+00:00"}

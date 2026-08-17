@@ -52,6 +52,19 @@
 
 官方脚本只由主进程保存 checkpoint 和 log。训练结束后可用 `--eval --resume outputs/detr_resnet50_ddp/checkpoint.pth` 评测。
 
+## 查看评测结果和 `latest.pth`
+
+评测时建议将终端输出同时保存下来：
+
+    torchrun --standalone --nproc_per_node=8 main.py \
+      --coco_path /data/xumengying/models_and_datasets/coco2017 \
+      --backbone_weights /data/xumengying/models_and_datasets/resnet-50 \
+      --output_dir outputs/detr_resnet50_ddp/eval \
+      --num_workers 8 \
+      --eval \
+      --resume outputs/detr_resnet50_ddp/checkpoint.pth \
+      2>&1 | tee outputs/detr_resnet50_ddp/eval.log
+
 ## 日志
 
 启动脚本使用 Python 非缓冲模式，并显式写入：

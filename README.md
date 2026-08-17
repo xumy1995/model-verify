@@ -1,11 +1,28 @@
 # 模型评测结果汇总
 
+## 芯片型号及软件版本说明
+
+- Cuda：NVIDIA A100-SXM4-40GB（40507 MiB），Python 3.12.13，PyTorch 2.6.0+cu124，Transformers 5.14.1，Ultralytics 8.4.115
+- mx-c500：MetaX C500（65120 MiB），maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64，Python 3.12.11，PyTorch 2.10.0+metax3.8.1.0，Transformers 5.13.0，Ultralytics 8.4.115
+
+## 评测模型和数据集
+
+| Model | Dataset |
+|---|---|
+| ResNet-50 | ImageNet-1k |
+| DETR-ResNet-50 | COCO |
+| YOLO26 | COCO（原始格式） |
+| ViT-B/16 | ImageNet-1k |
+| CLIP ViT-B/32 | ImageNet-1k（zero shot） |
+
+## 推理结果汇总
+
 结果来自 `cuda/logs/` 与 `mx-c500/logs/`，指标单位在“评测项”中注明。运行如下命令可自动生成本文表格：
 ```
 python generate_summary.py > summary.md
 ```
 
-## 精度对比
+### 精度对比
 
 | 模型 | 数据集 | 评测项 | cuda指标值 | mx-c500指标值 | 对比结果 |
 |---|---|---|---:|---:|---:|
@@ -15,7 +32,7 @@ python generate_summary.py > summary.md
 | ViT-B/16 | ImageNet-1k val | Top-5 accuracy (%) | 95.49 | 95.49 | +0.00 % |
 | CLIP ViT-B/32 (zero-shot) | ImageNet-1k val | Top-1 accuracy (%) | 60.83 | 60.83 | +0.00 % |
 | CLIP ViT-B/32 (zero-shot) | ImageNet-1k val | Top-5 accuracy (%) | 85.54 | 85.53 | -0.01 % |
-| DETR-ResNet-50 | COCO val | AP (IoU 0.50:0.95) | 0.571 | 0.571 | +0.00 % |
+| DETR-ResNet-50 | COCO val | AP (IoU 0.50:0.95) | 0.414 | 0.413 | -0.00 % |
 | DETR-ResNet-50 | COCO val | AP50 | 0.614 | 0.615 | +0.00 % |
 | DETR-ResNet-50 | COCO val | AP75 | 0.435 | 0.435 | +0.00 % |
 | YOLO26n | COCO val | mAP50-95 | 0.3950 | 0.3949 | -0.00 % |
@@ -34,7 +51,7 @@ python generate_summary.py > summary.md
 | YOLO26x | COCO val | mAP50 | 0.7352 | 0.7353 | +0.00 % |
 | YOLO26x | COCO val | mAP75 | 0.6159 | 0.6161 | +0.00 % |
 
-## 性能对比
+### 性能对比
 
 单位: ms/sample
 
@@ -62,3 +79,18 @@ python generate_summary.py > summary.md
 原始日志：[`cuda/logs/`](cuda/logs/)、[`mx-c500/logs/`](mx-c500/logs/)。
 
 对比规则：精度为 MX-C500−CUDA 的百分点差；耗时性能为 CUDA耗时/MX-C500耗时。加粗表示精度掉点超过 5 个百分点或性能低于 CUDA 的 80%。
+
+
+## 训练结果汇总
+
+| 模型 | 训练 GPU 资源 | 训练数据 | epochs | 训练耗时 | 模型精度 |
+|---|---|---|---:|---|---|
+| ResNet-50 | 8 张 A100 GPU | ImageNet-1k 训练集 | 600 | 1d+15h  | Top-1=80.09%，Top-5=95.02% |
+| ResNet-50 | 8 张 MX-C500 GPU | ImageNet-1k 训练集 | 600 | 1d+7.5h | Top-1=80.37%，Top-5=95.04% |
+| DETR-ResNet-50 | 8 张 A100 GPU | COCO 训练集 | 300 | 4d+10h | AP=0.411，AP50=0.621，AP75=0.431 |
+
+DETR 训练输出位于 [`cuda_train/detr/outputs/detr_resnet50_ddp/`](cuda_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](cuda_train/detr/outputs/detr_resnet50_ddp/eval.log)。
+
+
+
+

@@ -54,9 +54,11 @@ def classification_rows(model, dataset, cuda_file, mx_file):
 def detr_rows(cuda_file, mx_file):
     rows = []
     for label, pattern in (
-        ("AP (IoU 0.50:0.95)", r"IoU=0.50:0.95 \| area=\s+all.*=\s*([0-9.]+)"),
-        ("AP50", r"IoU=0.50\s+\| area=\s+all.*=\s*([0-9.]+)"),
-        ("AP75", r"IoU=0.75\s+\| area=\s+all.*=\s*([0-9.]+)"),
+        # Anchor on the AP label; otherwise the same IoU/area pattern also
+        # matches the later AR summary line and number() returns AR@100.
+        ("AP (IoU 0.50:0.95)", r"Average Precision\s+\(AP\).*IoU=0.50:0.95 \| area=\s+all.*=\s*([0-9.]+)"),
+        ("AP50", r"Average Precision\s+\(AP\).*IoU=0.50\s+\| area=\s+all.*=\s*([0-9.]+)"),
+        ("AP75", r"Average Precision\s+\(AP\).*IoU=0.75\s+\| area=\s+all.*=\s*([0-9.]+)"),
     ):
         rows.append(("DETR-ResNet-50", "COCO val", label, number(pattern, cuda_file), number(pattern, mx_file), 3))
     for label, pattern in (("推理耗时", r"Avg infer latency:\s*([0-9.]+)"), ("端到端耗时", r"Throughput\s*:\s*([0-9.]+)")):
@@ -88,15 +90,14 @@ def main():
     m = (ROOT / "mx-c500/logs/detr-resnet-50-coco-val-mx-c500.log").read_text(errors="ignore")
     rows += detr_rows(c, m)
     for size in ("n", "s", "m", "l", "x"):
-        stem = f"yolo26{size}-coco-val-cuda.log"
-        c = (ROOT / "cuda/logs" / stem).read_text(errors="ignore")
-        m = (ROOT / "mx-c500/logs" / stem).read_text(errors="ignore")
+        c = (ROOT / "cuda/logs" / f"yolo26{size}-coco-val-cuda.log").read_text(errors="ignore")
+        m = (ROOT / "mx-c500/logs" / f"yolo26{size}-coco-val-mx-c500.log").read_text(errors="ignore")
         rows += yolo_rows(f"YOLO26{size}", c, m)
     for title, selected in (
         ("精度对比", [row for row in rows if is_accuracy(row[2])]),
         ("性能对比", [row for row in rows if not is_accuracy(row[2])]),
     ):
-        print(f"## {title}\n")
+        print(f"### {title}\n")
         if title == "性能对比":
             print(f"单位: ms/sample\n")
         print("| 模型 | 数据集 | 评测项 | cuda指标值 | mx-c500指标值 | 对比结果 |")
