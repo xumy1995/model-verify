@@ -88,8 +88,10 @@ python generate_summary.py > summary.md
 | ResNet-50 | 8 张 A100 GPU | ImageNet-1k 训练集 | 600 | 1d+15h  | Top-1=80.09%，Top-5=95.02% |
 | ResNet-50 | 8 张 MX-C500 GPU | ImageNet-1k 训练集 | 600 | 1d+7.5h | Top-1=80.37%，Top-5=95.04% |
 | DETR-ResNet-50 | 8 张 A100 GPU | COCO 训练集 | 300 | 4d+10h | AP=0.411，AP50=0.621，AP75=0.431 |
+| DETR-ResNet-50 | 8 张 MX-C500 GPU | COCO 训练集 | 300 | 4d+3.5h | AP=0.408，AP50=0.618，AP75=0.430 |
 
-DETR 训练输出位于 [`cuda_train/detr/outputs/detr_resnet50_ddp/`](cuda_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](cuda_train/detr/outputs/detr_resnet50_ddp/eval.log)。
+- CUDA DETR 训练输出位于 [`cuda_train/detr/outputs/detr_resnet50_ddp/`](cuda_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](cuda_train/detr/outputs/detr_resnet50_ddp/eval.log)。
+- MX-C500 DETR 训练输出位于 [`mx-c500_train/detr/outputs/detr_resnet50_ddp/`](mx-c500_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](mx-c500_train/detr/outputs/detr_resnet50_ddp/eval.log)。
 
 
 
