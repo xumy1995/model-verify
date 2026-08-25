@@ -112,6 +112,15 @@ python eval_vit_mx.py \
   --batch-size 64 --num-workers 4 \
   --devices cuda \
   | tee logs/VIT-B-16-imagenet-1k-val-mx-c500.log
+
+算子级性能分析（不需要 ImageNet 数据，默认固定 batch=64 输入；结果按设备耗时排序）：
+```bash
+python profile_vit_ops.py --model-path /mnt/afs/xumengying/models_and_datasets/vit-base-patch16-224 \
+  --batch-size 64 --warmup 5 --steps 10 --trace logs/vit-profile-mx.json
+```
+脚本固定单卡 `cuda:0`（可用 `--device cuda:1` 修改），并额外打印 embeddings、12 个
+Transformer layer、layernorm、classifier 的平均阶段耗时；总和可与评测中的 inference time 对照。
+重点关注 `aten::matmul`/`aten::bmm`、`aten::linear` 及其对应的设备 kernel；将生成的 JSON 用 Chrome `chrome://tracing` 或 Perfetto 打开。
 ```
 
 ## clip-vit-b/32 + Imagenet-1k

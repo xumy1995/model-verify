@@ -42,6 +42,13 @@ python eval_yolo.py --model /data/xumengying/models_and_datasets/YOLO26/yolo26x.
 ## VIT-B/16
 ```bash
 python eval_vit.py --devices cuda | tee logs/VIT-B-16-imagenet-1k-val-cuda.log
+
+算子级性能分析（固定输入，避免数据加载干扰）：
+```bash
+python profile_vit_ops.py --model-path /data/xumengying/models_and_datasets/vit-base-patch16-224 \
+  --batch-size 64 --warmup 5 --steps 10 --trace logs/vit-profile-cuda.json
+```
+默认只使用单卡 `cuda:0`，并输出 ViT 各阶段平均耗时，便于和 MX-C500 逐项比较。
 ```
 
 ## clip-vit-b/32
