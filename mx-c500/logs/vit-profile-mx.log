@@ -1,0 +1,63 @@
+Stage wall time (average ms per step):
+embeddings                  317.348
+encoder.layers.0             68.628
+encoder.layers.1              8.380
+encoder.layers.2              8.344
+encoder.layers.3              8.380
+encoder.layers.4              8.342
+encoder.layers.5              8.385
+encoder.layers.6              8.364
+encoder.layers.7              8.381
+encoder.layers.8              8.345
+encoder.layers.9              8.379
+encoder.layers.10             8.353
+encoder.layers.11             8.378
+layernorm                     0.228
+classifier                    0.171
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg       CPU Mem  Self CPU Mem      CUDA Mem  Self CUDA Mem    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                           aten::linear         0.60%       4.029ms         5.26%      35.119ms      48.108us       0.000us         0.00%     289.121ms     396.056us           0 B           0 B      38.99 GB           0 B           730  
+                                            aten::addmm         2.93%      19.529ms         4.01%      26.759ms      36.656us     289.121ms        43.32%     289.121ms     396.056us           0 B           0 B      38.99 GB      38.99 GB           730  
+                     aten::scaled_dot_product_attention         0.10%     690.016us         6.43%      42.877ms     357.309us       0.000us         0.00%     286.328ms       2.386ms           0 B           0 B       4.55 GB     -12.91 GB           120  
+               aten::_scaled_dot_product_attention_math         0.25%       1.677ms         6.32%      42.187ms     351.559us       0.000us         0.00%     286.328ms       2.386ms           0 B         -56 B      17.69 GB     -22.24 GB           120  
+mcblas__Mck_tf32gemm_tn_256x256x32_1m1n4k_512t_4stag...         0.00%       0.000us         0.00%       0.000us       0.000us     178.573ms        26.76%     178.573ms     744.052us           0 B           0 B           0 B           0 B           240  
+                                           aten::matmul         0.41%       2.717ms         3.06%      20.423ms      85.098us       0.000us         0.00%     141.297ms     588.739us           0 B           0 B      17.69 GB     -12.99 GB           240  
+                                    aten::_safe_softmax         0.18%       1.227ms         2.13%      14.228ms     118.563us       0.000us         0.00%     131.586ms       1.097ms           0 B           0 B      13.58 GB      -3.13 GB           120  
+mcblas__Mck_tf32gemm_tn_128x128x32_4m1n4k_256t_fp32_...         0.00%       0.000us         0.00%       0.000us       0.000us     110.414ms        16.54%     110.414ms     230.029us           0 B           0 B           0 B           0 B           480  
+                                              aten::bmm         0.58%       3.855ms         0.81%       5.414ms      22.557us      96.957ms        14.53%      96.957ms     403.986us           0 B           0 B      17.69 GB      17.69 GB           240  
+                                            aten::where         0.15%       1.033ms         0.26%       1.754ms      14.616us      61.948ms         9.28%      61.948ms     516.235us           0 B           0 B           0 B           0 B           120  
+void at::native::elementwise_kernel_2_3<128, 2, floa...         0.00%       0.000us         0.00%       0.000us       0.000us      61.948ms         9.28%      61.948ms     516.235us           0 B           0 B           0 B           0 B           120  
+                                            aten::clone         0.25%       1.692ms         1.84%      12.305ms      25.113us       0.000us         0.00%      52.125ms     106.377us           0 B           0 B      17.67 GB           0 B           490  
+                                            aten::copy_         0.56%       3.716ms         0.98%       6.530ms      13.326us      52.125ms         7.81%      52.125ms     106.377us           0 B           0 B           0 B           0 B           490  
+mcblas__Mck_tf32gemm_full_1m1n1k_xt_fp32_fp32_tf32_s...         0.00%       0.000us         0.00%       0.000us       0.000us      50.765ms         7.61%      50.765ms     423.040us           0 B           0 B           0 B           0 B           120  
+mcblas__Mck_tf32gemm_full_1m1n1k_xt_fp32_fp32_tf32_s...         0.00%       0.000us         0.00%       0.000us       0.000us      46.192ms         6.92%      46.192ms     384.932us           0 B           0 B           0 B           0 B           120  
+                                          aten::reshape         0.30%       1.996ms         1.69%      11.293ms      18.514us       0.000us         0.00%      44.341ms      72.690us           0 B           0 B      12.99 GB           0 B           610  
+                                              aten::all         0.47%       3.114ms         0.60%       4.005ms      33.372us      33.359ms         5.00%      33.359ms     277.995us           0 B           0 B      17.34 MB      17.34 MB           120  
+std::enable_if<(((!std::is_same<bool, thrust::pair<b...         0.00%       0.000us         0.00%       0.000us       0.000us      33.359ms         5.00%      33.359ms     277.995us           0 B           0 B           0 B           0 B           120  
+void at::native::elementwise_kernel_transpose_float_...         0.00%       0.000us         0.00%       0.000us       0.000us      30.131ms         4.51%      30.131ms     251.091us           0 B           0 B           0 B           0 B           120  
+                                             aten::gelu         0.21%       1.386ms         0.35%       2.302ms      19.184us      26.095ms         3.91%      26.095ms     217.459us           0 B           0 B      17.34 GB      17.34 GB           120  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      26.095ms         3.91%      26.095ms     217.459us           0 B           0 B           0 B           0 B           120  
+                                          aten::softmax         0.05%     316.837us         0.36%       2.409ms      20.079us       0.000us         0.00%      23.739ms     197.828us           0 B           0 B      13.36 GB           0 B           120  
+                                         aten::_softmax         0.20%       1.340ms         0.31%       2.093ms      17.438us      23.739ms         3.56%      23.739ms     197.828us           0 B           0 B      13.36 GB      13.36 GB           120  
+void (anonymous namespace)::softmax_warp_forward<flo...         0.00%       0.000us         0.00%       0.000us       0.000us      23.739ms         3.56%      23.739ms     197.828us           0 B           0 B           0 B           0 B           120  
+                                       aten::layer_norm         0.14%     954.773us         1.81%      12.086ms      48.343us       0.000us         0.00%      22.752ms      91.007us           0 B           0 B       9.02 GB     -23.40 MB           250  
+                                aten::native_layer_norm         0.61%       4.097ms         1.67%      11.131ms      44.524us      22.752ms         3.41%      22.752ms      91.007us           0 B           0 B       9.04 GB           0 B           250  
+void at::native::layernorm::vectorized_layer_norm_ke...         0.00%       0.000us         0.00%       0.000us       0.000us      22.752ms         3.41%      22.752ms      91.007us           0 B           0 B           0 B           0 B           250  
+void at::native::elementwise_kernel_4_1_transpose12_...         0.00%       0.000us         0.00%       0.000us       0.000us      20.812ms         3.12%      20.812ms      57.812us           0 B           0 B           0 B           0 B           360  
+                                              aten::add         0.42%       2.782ms         0.65%       4.318ms      17.272us      20.381ms         3.05%      20.381ms      81.523us           0 B           0 B       9.02 GB       9.02 GB           250  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      19.708ms         2.95%      19.708ms      82.117us           0 B           0 B           0 B           0 B           240  
+                                           aten::conv2d         0.01%      42.222us         0.35%       2.324ms     232.423us       0.000us         0.00%      14.551ms       1.455ms           0 B           0 B     367.50 MB           0 B            10  
+                                      aten::convolution         0.01%      56.219us         0.34%       2.282ms     228.201us       0.000us         0.00%      14.551ms       1.455ms           0 B           0 B     367.50 MB           0 B            10  
+                                     aten::_convolution         0.04%     266.040us         0.33%       2.226ms     222.579us       0.000us         0.00%      14.551ms       1.455ms           0 B           0 B     367.50 MB    -367.50 MB            10  
+                                              aten::mul         0.62%       4.154ms         0.81%       5.390ms      22.458us      13.444ms         2.01%      13.444ms      56.016us          56 B          56 B       8.66 GB       8.66 GB           240  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      13.444ms         2.01%      13.444ms      56.016us           0 B           0 B           0 B           0 B           240  
+                                aten::cudnn_convolution         0.17%       1.138ms         0.19%       1.276ms     127.565us      12.676ms         1.90%      12.676ms       1.268ms           0 B           0 B     367.50 MB     367.50 MB            10  
+MckFlexgemm256x64Tf32Gl__fwd_cross_tfround_a_nhwc_b_...         0.00%       0.000us         0.00%       0.000us       0.000us      12.676ms         1.90%      12.676ms       1.268ms           0 B           0 B           0 B           0 B            10  
+                                         aten::isneginf         0.19%       1.292ms         0.30%       2.012ms      16.763us      12.258ms         1.84%      12.258ms     102.148us           0 B           0 B       3.33 GB       3.33 GB           120  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      12.258ms         1.84%      12.258ms     102.148us           0 B           0 B           0 B           0 B           120  
+                                    mcDeviceSynchronize        84.22%     561.928ms        84.22%     561.928ms       1.807ms       8.069ms         1.21%       8.069ms      25.946us           0 B           0 B           0 B           0 B           311  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 667.232ms
+Self CUDA time total: 667.418ms
+

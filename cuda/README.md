@@ -46,7 +46,7 @@ python eval_vit.py --devices cuda | tee logs/VIT-B-16-imagenet-1k-val-cuda.log
 算子级性能分析（固定输入，避免数据加载干扰）：
 ```bash
 python profile_vit_ops.py --model-path /data/xumengying/models_and_datasets/vit-base-patch16-224 \
-  --batch-size 64 --warmup 5 --steps 10 --trace logs/vit-profile-cuda.json
+  --batch-size 64 --warmup 5 --steps 10 --trace logs/vit-profile-cuda.json | tee logs/vit-profile-cuda.log
 ```
 默认只使用单卡 `cuda:0`，并输出 ViT 各阶段平均耗时，便于和 MX-C500 逐项比较。
 ```
