@@ -33,6 +33,17 @@ def main():
         device=args.device, workers=args.workers, project=args.project, name=args.name,
         resume=args.resume, seed=args.seed, cache=args.cache, optimizer="MuSGD",
         lr0=0.0054, lrf=0.04952, momentum=0.94676, weight_decay=0.00064,
+        warmup_epochs=0.98124, warmup_momentum=0.6576, warmup_bias_lr=0.08114,
+        nbs=64, close_mosaic=10, cos_lr=False, amp=True, deterministic=True,
+        box=5.62767, cls=0.56099, dfl=9.03871,
+        hsv_h=0.01373, hsv_s=0.64481, hsv_v=0.56565,
+        degrees=1.11032, translate=0.07105, scale=0.56232,
+        shear=1.46386, perspective=0.00011, flipud=0.05854,
+        fliplr=0.60571, bgr=0.10567, mosaic=0.90863, mixup=0.01216,
+        cutmix=0.0, copy_paste=0.07504, copy_paste_mode="flip",
+        auto_augment="randaugment", erasing=0.4,
+        o2m=1.0, muon_w=0.52782, sgd_w=0.6737, cls_w=2.7371,
+        stride_ratio=1.0, detach_epoch=10, topk=8, end2end=True,
     )
     print("Training complete:", getattr(results, "save_dir", Path(args.project) / args.name))
 

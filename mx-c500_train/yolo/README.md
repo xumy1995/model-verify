@@ -42,6 +42,8 @@ bash run_train.sh --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n
   --optimizer MuSGD --name yolo26n_official_recipe 2>&1 | tee logs/train_yolo26n_official.log
 ```
 
+脚本已显式对齐官方 checkpoint 中记录的优化器、学习率、warmup、loss 权重、数据增强、MuSGD/YOLO26 专用参数、AMP 和 deterministic 配置；epoch 按官方 recipe 示例使用 100。
+
 输出默认保存到 `mx-c500_train/yolo/runs/<name>/`，其中 `weights/best.pt` 是验证集表现最佳的权重。显存不足时降低 `--batch`；多卡可传 `--device 0,1`（按 C500/Ultralytics 环境支持情况使用）。断点续训：
 
 `--batch` 是全局 batch size，会由 Ultralytics 在 8 张卡间分配；如需每卡约 16 张图片，可设置 `--batch 128`（实际可用值取决于显存）。
