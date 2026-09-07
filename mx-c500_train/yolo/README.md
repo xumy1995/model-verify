@@ -2,7 +2,7 @@
 
 本目录用于在 MX-C500 镜像容器内使用 8 张卡从零训练 YOLO26。使用容器中已安装的 Ultralytics（项目评测环境为 8.4.115）和 maca-pytorch；通过逗号分隔的 `device` 选择设备，默认值为 `0,1,2,3,4,5,6,7`。
 
-默认从官方起始权重 `yolo26n-objv1-150.pt` 开始训练，使用独立输出目录，不覆盖第一次训练结果。
+默认从官方起始权重 `yolo26n-objv1-150.pt` 开始训练；直接传模型名时，Ultralytics 会在容器内自动下载（或使用本地缓存）。使用独立输出目录，不覆盖第一次训练结果。
 
 ## 进入 MX-C500 容器
 
@@ -36,13 +36,13 @@ YAML 至少应包含 `path`、`train`、`val` 和 `names`；标签为每行 `cla
 
 ```bash
 cd /workspace/model-verify/mx-c500_train/yolo
-bash run_train.sh --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n-objv1-150.pt \
+bash run_train.sh --model yolo26n-objv1-150.pt \
   --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
-  --epochs 100 --batch 128 --imgsz 640 --device 0,1,2,3,4,5,6,7 \
+  --epochs 245 --batch 128 --imgsz 640 --device 0,1,2,3,4,5,6,7 \
   --optimizer MuSGD --name yolo26n_official_recipe 2>&1 | tee logs/train_yolo26n_official.log
 ```
 
-脚本已显式对齐官方 checkpoint 中记录的优化器、学习率、warmup、loss 权重、数据增强、MuSGD/YOLO26 专用参数、AMP 和 deterministic 配置；epoch 按官方 recipe 示例使用 100。
+脚本已显式对齐官方 checkpoint 中记录的优化器、学习率、warmup、loss 权重、数据增强、MuSGD/YOLO26 专用参数、AMP 和 deterministic 配置；epoch 按官方 checkpoint 记录使用 245。
 
 输出默认保存到 `mx-c500_train/yolo/runs/<name>/`，其中 `weights/best.pt` 是验证集表现最佳的权重。显存不足时降低 `--batch`；多卡可传 `--device 0,1`（按 C500/Ultralytics 环境支持情况使用）。断点续训：
 

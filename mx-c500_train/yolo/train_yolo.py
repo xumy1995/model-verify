@@ -8,10 +8,10 @@ from ultralytics import YOLO
 
 def parse_args():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--model", default="/mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n-objv1-150.pt", help="Official YOLO26 starting checkpoint")
+    p.add_argument("--model", default="yolo26n-objv1-150.pt", help="Official YOLO26 starting checkpoint (auto-downloaded by Ultralytics if absent)")
     p.add_argument("--data", default="/mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml",
                    help="Ultralytics dataset YAML")
-    p.add_argument("--epochs", type=int, default=100)
+    p.add_argument("--epochs", type=int, default=245)
     p.add_argument("--batch", type=int, default=128)
     p.add_argument("--imgsz", type=int, default=640)
     p.add_argument("--device", default="0,1,2,3,4,5,6,7",
