@@ -53,9 +53,20 @@ bash run_train.sh --model runs/yolo26n_coco/weights/last.pt --resume
 
 ## 验证训练结果
 
+在容器内运行以下命令（8 卡验证）：
+
 ```bash
 bash run_validate.sh --model runs/yolo26n_coco/weights/best.pt \
-  --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml --device 0
+  --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
+  --device 0,1,2,3,4,5,6,7 2>&1 | tee logs/validate_yolo26n_best.log
+```
+
+验证预训练示例权重：
+
+```bash
+bash run_validate.sh --model yolo26n.pt \
+  --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
+  --device 0,1,2,3,4,5,6,7 2>&1 | tee logs/validate_yolo26n_gold.log
 ```
 
 该脚本输出 mAP50-95、mAP50、mAP75 和各类别 AP；推理流程可继续参考上级目录的 `eval_yolo_mx.py`。
