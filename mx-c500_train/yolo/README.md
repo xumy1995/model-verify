@@ -45,6 +45,8 @@ bash run_train.sh --model yolo26n.yaml \
 
 `--batch` 是全局 batch size，会由 Ultralytics 在 8 张卡间分配；如需每卡约 16 张图片，可设置 `--batch 128`（实际可用值取决于显存）。
 
+训练过程指标和累计耗时保存在 `runs/<name>/results.csv`（`time` 列，单位为秒）；建议同时将终端输出保存：`bash run_train.sh ... 2>&1 | tee logs/train_yolo26n.log`。
+
 ```bash
 bash run_train.sh --model runs/yolo26n_coco/weights/last.pt --resume
 ```

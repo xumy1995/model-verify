@@ -1,0 +1,5 @@
+YOLO26n training summary
+epochs=100
+total_time_seconds=103765
+total_time=28h49m25s (1d4h49m25s)
+source=runs/yolo26n_coco/results.csv, final epoch time column
