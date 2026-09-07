@@ -2,7 +2,7 @@
 
 本目录用于在 MX-C500 镜像容器内使用 8 张卡从零训练 YOLO26。使用容器中已安装的 Ultralytics（项目评测环境为 8.4.115）和 maca-pytorch；通过逗号分隔的 `device` 选择设备，默认值为 `0,1,2,3,4,5,6,7`。
 
-默认 `yolo26n.yaml` 从随机初始化开始完整训练；显式传入 `.pt` 才是预训练微调。
+默认从官方起始权重 `yolo26n-objv1-150.pt` 开始训练，使用独立输出目录，不覆盖第一次训练结果。
 
 ## 进入 MX-C500 容器
 
@@ -36,9 +36,10 @@ YAML 至少应包含 `path`、`train`、`val` 和 `names`；标签为每行 `cla
 
 ```bash
 cd /workspace/model-verify/mx-c500_train/yolo
-bash run_train.sh --model yolo26n.yaml \
+bash run_train.sh --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n-objv1-150.pt \
   --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
-  --epochs 100 --batch 16 --imgsz 640 --device 0,1,2,3,4,5,6,7 --name yolo26n_coco
+  --epochs 100 --batch 128 --imgsz 640 --device 0,1,2,3,4,5,6,7 \
+  --optimizer MuSGD --name yolo26n_official_recipe 2>&1 | tee logs/train_yolo26n_official.log
 ```
 
 输出默认保存到 `mx-c500_train/yolo/runs/<name>/`，其中 `weights/best.pt` 是验证集表现最佳的权重。显存不足时降低 `--batch`；多卡可传 `--device 0,1`（按 C500/Ultralytics 环境支持情况使用）。断点续训：
