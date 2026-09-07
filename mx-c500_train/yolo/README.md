@@ -36,10 +36,7 @@ YAML 至少应包含 `path`、`train`、`val` 和 `names`；标签为每行 `cla
 
 ```bash
 cd /workspace/model-verify/mx-c500_train/yolo
-bash run_train.sh --model yolo26n-objv1-150.pt \
-  --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
-  --epochs 245 --batch 128 --imgsz 640 --device 0,1,2,3,4,5,6,7 \
-  --optimizer MuSGD --name yolo26n_official_recipe 2>&1 | tee logs/train_yolo26n_official.log
+bash run_train.sh 2>&1 | tee logs/train_yolo26n_official.log
 ```
 
 脚本已显式对齐官方 checkpoint 中记录的优化器、学习率、warmup、loss 权重、数据增强、MuSGD/YOLO26 专用参数、AMP 和 deterministic 配置；epoch 按官方 checkpoint 记录使用 245。
