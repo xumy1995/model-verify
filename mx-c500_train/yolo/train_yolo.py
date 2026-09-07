@@ -42,8 +42,6 @@ def main():
         fliplr=0.60571, bgr=0.10567, mosaic=0.90863, mixup=0.01216,
         cutmix=0.0, copy_paste=0.07504, copy_paste_mode="flip",
         auto_augment="randaugment", erasing=0.4,
-        o2m=1.0, muon_w=0.52782, sgd_w=0.6737, cls_w=2.7371,
-        stride_ratio=1.0, detach_epoch=10, topk=8, end2end=True,
     )
     print("Training complete:", getattr(results, "save_dir", Path(args.project) / args.name))
 
