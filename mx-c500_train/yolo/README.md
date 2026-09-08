@@ -41,14 +41,10 @@ bash run_train.sh 2>&1 | tee logs/train_yolo26n_official.log
 
 脚本已显式对齐官方 checkpoint 中记录的优化器、学习率、warmup、loss 权重、数据增强、MuSGD/YOLO26 专用参数、AMP 和 deterministic 配置；epoch 按官方 checkpoint 记录使用 245。
 
-输出默认保存到 `mx-c500_train/yolo/runs/<name>/`，其中 `weights/best.pt` 是验证集表现最佳的权重。显存不足时降低 `--batch`；多卡可传 `--device 0,1`（按 C500/Ultralytics 环境支持情况使用）。断点续训：
-
-`--batch` 是全局 batch size，会由 Ultralytics 在 8 张卡间分配；如需每卡约 16 张图片，可设置 `--batch 128`（实际可用值取决于显存）。
-
-训练过程指标和累计耗时保存在 `runs/<name>/results.csv`（`time` 列，单位为秒）；建议同时将终端输出保存：`bash run_train.sh ... 2>&1 | tee logs/train_yolo26n.log`。
+输出默认保存到 `mx-c500_train/yolo/runs/yolo26n_official_recipe/`，其中 `weights/best.pt` 是验证集表现最佳的权重。显存不足时降低 `--batch`；多卡可传 `--device 0,1`（按 C500/Ultralytics 环境支持情况使用）。断点续训：
 
 ```bash
-bash run_train.sh --model runs/yolo26n_coco/weights/last.pt --resume
+bash run_train.sh --model runs/yolo26n_official_recipe/weights/last.pt --resume
 ```
 
 完整参数可运行 `python yolo/train_yolo.py --help` 查看。常用参数还包括 `--workers`、`--cache`、`--seed`、`--project`。
@@ -58,9 +54,9 @@ bash run_train.sh --model runs/yolo26n_coco/weights/last.pt --resume
 在容器内运行以下命令（8 卡验证）：
 
 ```bash
-bash run_validate.sh --model runs/yolo26n_coco/weights/best.pt \
+bash run_validate.sh --model runs/yolo26n_official_recipe/weights/best.pt \
   --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
-  --device 0,1,2,3,4,5,6,7 2>&1 | tee logs/validate_yolo26n_best.log
+  --device 0,1,2,3,4,5,6,7 2>&1 | tee logs/validate_yolo26n_official_best.log
 ```
 
 验证预训练示例权重：
