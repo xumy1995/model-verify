@@ -60,6 +60,21 @@ NPROC_PER_NODE=1 ./vit/run_vit_b16.sh --smoke \
 训练过程写入 JSONL 日志，仅 rank 0 保存 `last.pth` 和按 EMA Top-1 选择的
 `best.pth`。
 
+## 完整训练结果
+
+在 8 张 MX-C500 上完成 300 epochs 从零训练后，最佳 EMA checkpoint 出现在
+epoch 277。使用单张 MX-C500 对 `best.pth` 的 EMA 权重在完整 50,000 张 ImageNet-1K
+验证集上独立评测，结果如下：
+
+| 指标 | MX-C500 实测 | TorchVision V1 官方基线 | 差值 |
+| --- | ---: | ---: | ---: |
+| Top-1 | 80.954% | 81.072% | -0.118 pp |
+| Top-5 | 95.348% | 95.318% | +0.030 pp |
+
+评测使用 FP32、batch size 256、2 个 DataLoader workers，并排除前 5 个 batch 的
+性能 warmup。单卡端到端吞吐为 984.96 samples/s，纯模型吞吐为 1001.44 samples/s，
+平均纯推理延迟为 0.999 ms/sample。
+
 ## 独立评测
 
 ```bash

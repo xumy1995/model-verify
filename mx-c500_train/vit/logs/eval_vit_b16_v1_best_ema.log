@@ -1,0 +1,15 @@
+/opt/conda/lib/python3.12/site-packages/torch/nn/modules/activation.py:1431: UserWarning: 1Torch was not compiled with memory efficient attention. (Triggered internally at /workspace/framework/mcPytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:866.)
+  return torch._native_multi_head_attention(
+Checkpoint       : vit/checkpoints/vit_b16_v1_ddp/best.pth
+Checkpoint weights: ema
+Device           : cuda
+Precision        : fp32
+Samples          : 50000
+Model load time  : 4.672s
+Transfer time    : 0.725s
+Inference time   : 48.650s
+Throughput       : 984.96 samples/s
+Infer throughput : 1001.44 samples/s
+Avg infer latency: 0.999 ms/sample
+Top-1 accuracy   : 80.954%
+Top-5 accuracy   : 95.348%
