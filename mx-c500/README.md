@@ -6,7 +6,7 @@
 - 镜像下载地址：https://developer.metax-tech.com/softnova/docker?chip_name=%E6%9B%A6%E4%BA%91C500%E7%B3%BB%E5%88%97&package_kind=AI&dimension=docker&deliver_type=%E5%88%86%E5%B1%82%E5%8C%85&ai_frame=pytorch&frame_version=2.10&python_version=3.12
 - 需要注册登录，点击【docker pull命令复制】
 
-## 2. 加载镜像
+## 2. 创建容器
 
 ```bash
 sudo docker run -it \
@@ -18,7 +18,7 @@ sudo docker run -it \
   cr.metax-tech.com/public-library/maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64   /bin/bash
 ```
 
-## 3. 进入镜像并验证pytorch可用
+## 3. 进入容器并验证pytorch可用
 ```bash
 sudo docker exec -it maca-pytorch-test /bin/bash
 ```
