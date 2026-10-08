@@ -4,7 +4,7 @@
 
 ## 需要下载的数据
 
-官方代码要求标准 COCO 2017 目录，不支持当前 Hugging Face Parquet 目录。请在网络正常的机器下载以下官方文件，再复制到本机：
+官方代码要求标准 COCO 2017 目录，不支持 Hugging Face Parquet 目录。若本地尚无数据，请下载以下官方文件：
 
     http://images.cocodataset.org/zips/train2017.zip
     http://images.cocodataset.org/zips/val2017.zip
@@ -18,7 +18,7 @@
       annotations/instances_train2017.json
       annotations/instances_val2017.json
 
-不要在当前机器自动执行下载；下载好并解压后告诉我。
+已有标准目录时直接使用上述路径，无需再次下载。
 
 ## ResNet-50 初始化
 

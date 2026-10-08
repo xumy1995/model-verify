@@ -1,5 +1,6 @@
 torch
 torchvision
+ultralytics==8.4.115
 pillow
 datasets
 transformers

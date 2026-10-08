@@ -4,11 +4,12 @@
 
 ## 环境
 
-使用此前测试验证时创建的docker环境:
+使用此前测试验证时创建的 docker 环境，并进入训练目录：
 
      sudo docker exec -it maca-pytorch-test bash
+     cd /workspace/model-verify/mx-c500_train
 
-训练脚本使用本目录已有的 torch、torchvision、Pillow 环境，不会自动下载数据或依赖。
+训练脚本使用容器中已有的 torch、torchvision、Pillow 环境，不会自动下载数据或依赖。
 
 ## Kaggle 数据目录
 
@@ -58,7 +59,7 @@
 
     ./resnet/run_resnet50_v2.sh --log-interval 10
 
-脚本每 100 个 batch 输出一次进度，每个 epoch 结束输出一次验证结果。
+上述命令每 10 个 batch 输出一次进度（不传 `--log-interval` 时默认每 100 个 batch），每个 epoch 结束输出一次验证结果。
 
 多卡使用 torchrun 启动；batch-size 是每张卡的 batch size：
 

@@ -57,7 +57,7 @@
 
     ./resnet/run_resnet50_v2.sh --log-interval 10
 
-脚本每 100 个 batch 输出一次进度，每个 epoch 结束输出一次验证结果。
+上述命令每 10 个 batch 输出一次进度（不传 `--log-interval` 时默认每 100 个 batch），每个 epoch 结束输出一次验证结果。
 
 多卡使用 torchrun 启动；batch-size 是每张卡的 batch size：
 

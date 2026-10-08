@@ -1,6 +1,6 @@
 # 在 MetaX C500 上训练 YOLO26
 
-本目录用于在 MX-C500 镜像容器内使用 8 张卡从零训练 YOLO26。使用容器中已安装的 Ultralytics（项目评测环境为 8.4.115）和 maca-pytorch；通过逗号分隔的 `device` 选择设备，默认值为 `0,1,2,3,4,5,6,7`。
+本目录用于在 MX-C500 镜像容器内使用 8 张卡从官方起始权重微调 YOLO26。使用容器中已安装的 Ultralytics（训练日志记录的版本为 8.4.115）和 maca-pytorch；通过逗号分隔的 `device` 选择设备，默认值为 `0,1,2,3,4,5,6,7`。
 
 默认从官方起始权重 `yolo26n-objv1-150.pt` 开始训练；直接传模型名时，Ultralytics 会在容器内自动下载（或使用本地缓存）。使用独立输出目录，不覆盖第一次训练结果。
 
@@ -47,7 +47,7 @@ bash run_train.sh 2>&1 | tee logs/train_yolo26n_official.log
 bash run_train.sh --model runs/yolo26n_official_recipe/weights/last.pt --resume
 ```
 
-完整参数可运行 `python yolo/train_yolo.py --help` 查看。常用参数还包括 `--workers`、`--cache`、`--seed`、`--project`。
+在本目录运行 `python train_yolo.py --help` 可查看完整参数。常用参数还包括 `--workers`、`--cache`、`--seed`、`--project`。
 
 ## 验证训练结果
 
@@ -62,7 +62,7 @@ bash run_validate.sh --model runs/yolo26n_official_recipe/weights/best.pt \
 验证预训练示例权重：
 
 ```bash
-bash run_validate.sh --model yolo26n.pt \
+bash run_validate.sh --model /mnt/afs/xumengying/models_and_datasets/YOLO26/yolo26n.pt \
   --data /mnt/afs/xumengying/models_and_datasets/coco_yolo_format/coco.yaml \
   --device 0,1,2,3,4,5,6,7 2>&1 | tee logs/validate_yolo26n_gold.log
 ```
