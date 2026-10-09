@@ -47,7 +47,7 @@ bash run_train.sh --model yolo/runs/yolo26n_official_recipe/weights/last.pt --re
 
 245 轮训练于 2026-10-08 完成（训练计时 41,592 秒）；最佳轮次为 245。
 完整模型保存在 `runs/yolo26n_official_recipe/weights/best.pt`，逐轮指标备份在
-`logs/train_yolo26n_official_results.csv`。首次启动因缺失数据标签中断，仅生成
+[`logs/train_yolo26n_official_results.csv`](logs/train_yolo26n_official_results.csv)。首次启动因缺失数据标签中断，仅生成
 `args.yaml`；该无效目录已删除，完整训练结果由 Ultralytics 自动生成的 `-2` 目录
 归位到标准目录。`runs/yolo26n_official_recipe/args.yaml` 中仍保留运行时原始的
 `name: yolo26n_official_recipe-2`，便于追溯。原始终端日志
@@ -61,9 +61,11 @@ mkdir -p logs
 bash run_validate.sh > logs/validate_yolo26n_best.log 2>&1
 ```
 
-验证结果写入 `runs/validation_best/`，完整控制台输出保留在
-`logs/validate_yolo26n_best.log`，精简结果保存在
-`logs/validate_yolo26n_best_summary.txt`。
+验证结果写入 `runs/validation_best/`。评测日志：
+
+- CUDA 完整日志：[`logs/validate_yolo26n_best.log`](logs/validate_yolo26n_best.log)
+- CUDA 指标摘要：[`logs/validate_yolo26n_best_summary.txt`](logs/validate_yolo26n_best_summary.txt)
+- MX-C500 对照日志：[`mx-c500_train/yolo/logs/validate_yolo26n_official_best.log`](../../mx-c500_train/yolo/logs/validate_yolo26n_official_best.log)
 
 | 模型 | mAP50-95 | mAP50 | mAP75 |
 |---|---:|---:|---:|
