@@ -1,2 +1,4 @@
-logs/
 runs/
+logs/*
+!logs/train_yolo26n_official_results.csv
+!logs/validate_yolo26n_best_summary.txt

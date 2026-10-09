@@ -1,0 +1,11 @@
+YOLO26n best.pt | COCO 2017 val (5000 images) | Ultralytics 8.4.115
+Checkpoint: cuda_train/yolo/runs/yolo26n_official_recipe/weights/best.pt
+Settings: device=0, batch=16, imgsz=640, split=val
+mAP50-95: 0.3765
+mAP50:    0.5354
+mAP75:    0.4135
+COCOeval AP50-95 (maxDets=100): 0.383
+COCOeval AP50 (maxDets=100):    0.543
+COCOeval AP75 (maxDets=100):    0.419
+Complete output: logs/validate_yolo26n_best.log
+Plots/predictions: runs/validation_best/

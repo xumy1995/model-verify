@@ -5,6 +5,7 @@
 在已有 `cuda_train/venv-cuda-py312` 中安装依赖：
 
 ```bash
+cd /data/xumengying/model-verify/cuda_train/yolo
 uv pip install --python ../venv-cuda-py312/bin/python 'ultralytics==8.4.115'
 ```
 
@@ -19,6 +20,7 @@ cd /data/xumengying/model-verify/cuda_train/yolo
 
 ```bash
 cd /data/xumengying/model-verify/cuda_train/yolo
+mkdir -p logs
 bash run_train.sh 2>&1 | tee logs/train_yolo26n_official.log
 ```
 
@@ -40,3 +42,30 @@ bash run_train.sh 2>&1 | tee logs/train_yolo26n_official.log
 ```bash
 bash run_train.sh --model yolo/runs/yolo26n_official_recipe/weights/last.pt --resume
 ```
+
+## 训练结果与验证
+
+245 轮训练于 2026-10-08 完成（训练计时 41,592 秒）；最佳轮次为 245。
+完整模型保存在 `runs/yolo26n_official_recipe/weights/best.pt`，逐轮指标备份在
+`logs/train_yolo26n_official_results.csv`。首次启动因缺失数据标签中断，仅生成
+`args.yaml`；该无效目录已删除，完整训练结果由 Ultralytics 自动生成的 `-2` 目录
+归位到标准目录。`runs/yolo26n_official_recipe/args.yaml` 中仍保留运行时原始的
+`name: yolo26n_official_recipe-2`，便于追溯。原始终端日志
+`logs/train_yolo26n_official.log` 记录了完整训练（末尾另有一次
+`run_train.sh` 命令错误，不影响已完成的训练）。
+
+从本目录运行单卡完整 COCO val 独立评测（batch 16、输入 640；与 C500 验证脚本一致）：
+
+```bash
+mkdir -p logs
+bash run_validate.sh > logs/validate_yolo26n_best.log 2>&1
+```
+
+验证结果写入 `runs/validation_best/`，完整控制台输出保留在
+`logs/validate_yolo26n_best.log`，精简结果保存在
+`logs/validate_yolo26n_best_summary.txt`。
+
+| 模型 | mAP50-95 | mAP50 | mAP75 |
+|---|---:|---:|---:|
+| CUDA YOLO26n best.pt | 0.3765 | 0.5354 | 0.4135 |
+| MX-C500 YOLO26n best.pt | 0.3821 | 0.5337 | 0.4133 |
