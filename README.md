@@ -92,7 +92,8 @@ python generate_summary.py > summary.md
 
 YOLO26n 的 CUDA 8 卡训练使用与 MX-C500 相同的起始权重和训练超参数，已完成 245 轮（约 11.55 小时）；独立 COCO val 验证结果：CUDA best.pt 的 mAP50-95 为 0.3765、mAP50 为 0.5354、mAP75 为 0.4135；MX-C500 best.pt 分别为 0.3821、0.5337、0.4133。训练详情见 [`cuda_train/yolo/README.md`](cuda_train/yolo/README.md)，MX-C500 的 YOLO 流程见 [`mx-c500_train/yolo/README.md`](mx-c500_train/yolo/README.md)，ViT-B/16 流程见 [`mx-c500_train/vit/README.md`](mx-c500_train/vit/README.md)。
 
+ViT-B/16 的 CUDA 8 卡训练已完成 300 轮，最佳 EMA checkpoint 位于第 280 轮；独立 ImageNet-1K val 评测结果为 Top-1=80.932%、Top-5=95.246%，MX-C500 对照为 80.954%/95.348%。详情见 [`cuda_train/vit/README.md`](cuda_train/vit/README.md)。
+
 - CUDA DETR 训练输出位于 [`cuda_train/detr/outputs/detr_resnet50_ddp/`](cuda_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](cuda_train/detr/outputs/detr_resnet50_ddp/eval.log)。
 - MX-C500 DETR 训练输出位于 [`mx-c500_train/detr/outputs/detr_resnet50_ddp/`](mx-c500_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](mx-c500_train/detr/outputs/detr_resnet50_ddp/eval.log)。
-
 

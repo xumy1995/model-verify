@@ -1,0 +1,13 @@
+Checkpoint       : vit/checkpoints/vit_b16_v1_ddp/best.pth
+Checkpoint weights: ema
+Device           : cuda
+Precision        : fp32
+Samples          : 50000
+Model load time  : 6.266s
+Transfer time    : 1.589s
+Inference time   : 24.699s
+Throughput       : 1849.98 samples/s
+Infer throughput : 1972.57 samples/s
+Avg infer latency: 0.507 ms/sample
+Top-1 accuracy   : 80.932%
+Top-5 accuracy   : 95.246%
