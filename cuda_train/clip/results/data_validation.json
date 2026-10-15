@@ -1,0 +1,6 @@
+{
+  "data": "/data/xumengying/models_and_datasets/cc3m_wds",
+  "validation_scope": "Full tar structure scan and missing .txt check; not full image decode or SHA256 verification",
+  "train": {"shards": 576, "samples": 2905954, "missing_txt": 0, "bad_shards": 0},
+  "validation": {"shards": 16, "samples": 13443, "missing_txt": 0, "bad_shards": 0}
+}

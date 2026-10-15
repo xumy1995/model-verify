@@ -1,0 +1,29 @@
+{
+  "evaluated_at_utc": "2026-10-15T02:24:23.552093+00:00",
+  "checkpoint": "cuda_train/clip/logs/cc3m_vit_b32_8xa100/checkpoints/epoch_32.pt",
+  "checkpoint_sha256": "46562339d412f2001f9c45e922410a227c6bc0e3ecf461d8f167d0cdd7092099",
+  "epoch": 32,
+  "model": "ViT-B-32",
+  "data": "/data/xumengying/models_and_datasets/ILSVRC",
+  "samples": 50000,
+  "classes": 1000,
+  "protocol": "ImageNet-1K zero-shot, OpenCLIP IMAGENET_CLASSNAMES, OPENAI_IMAGENET_TEMPLATES",
+  "templates": 80,
+  "precision": "fp32",
+  "preprocess": "Compose(\n    Resize(size=224, interpolation=bicubic, max_size=None, antialias=True)\n    CenterCrop(size=(224, 224))\n    <function _convert_to_rgb at 0x7fd3d92acea0>\n    ToTensor()\n    Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))\n)",
+  "batch_size": 256,
+  "workers": 8,
+  "correct_top1": 6881,
+  "correct_top5": 14722,
+  "top1_percent": 13.762,
+  "top5_percent": 29.444,
+  "elapsed_seconds": 154.49693983001634,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "versions": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "open_clip_torch": "3.0.0",
+    "webdataset": "0.2.86",
+    "pillow": "12.2.0"
+  }
+}

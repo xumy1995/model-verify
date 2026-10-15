@@ -6,5 +6,6 @@
 - `detr/`：DETR ResNet-50 COCO 训练与验证
 - `yolo/`：YOLO26 COCO 训练
 - `vit/`：ViT-B/16 ImageNet-1K 训练与验证
+- `clip/`：OpenCLIP ViT-B/32 CC3M 从零训练、图文检索验证与 ImageNet-1K 零样本评测
 
 进入具体模型目录的 README 查看数据、冒烟测试和完整训练命令。公共 CUDA 环境位于 `cuda_train/venv-cuda-py312`。

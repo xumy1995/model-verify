@@ -83,6 +83,11 @@ python generate_summary.py > summary.md
 
 ## 训练结果汇总
 
+OpenCLIP ViT-B/32 的 CUDA 8 卡 CC3M 从零训练已完成 32 轮（约 12 小时 2 分钟）；
+最终 epoch 32 在完整 ImageNet-1K 验证集上的零样本精度为 **Top-1=13.762%、Top-5=29.444%**
+（FP32、OpenCLIP 类别名与 80 个 OpenAI 模板）。这不是上方官方 CLIP 权重推理结果的同数据训练复现。
+配方、训练日志及评测结果见 [`cuda_train/clip/README.md`](cuda_train/clip/README.md)。
+
 | 模型 | 训练 GPU 资源 | 训练数据 | epochs | 训练耗时 | 模型精度 |
 |---|---|---|---:|---|---|
 | ResNet-50 | 8 张 A100 GPU | ImageNet-1k 训练集 | 600 | 1d+15h  | Top-1=80.09%，Top-5=95.02% |
@@ -96,4 +101,3 @@ ViT-B/16 的 CUDA 8 卡训练已完成 300 轮，最佳 EMA checkpoint 位于第
 
 - CUDA DETR 训练输出位于 [`cuda_train/detr/outputs/detr_resnet50_ddp/`](cuda_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](cuda_train/detr/outputs/detr_resnet50_ddp/eval.log)。
 - MX-C500 DETR 训练输出位于 [`mx-c500_train/detr/outputs/detr_resnet50_ddp/`](mx-c500_train/detr/outputs/detr_resnet50_ddp/)，评测日志见 [`eval.log`](mx-c500_train/detr/outputs/detr_resnet50_ddp/eval.log)。
-

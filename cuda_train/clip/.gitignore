@@ -1,0 +1,4 @@
+logs/
+checkpoints/
+.venv/
+train_8xa100.log

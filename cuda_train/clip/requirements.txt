@@ -1,0 +1,2 @@
+open_clip_torch[training]==3.0.0
+webdataset==0.2.86
